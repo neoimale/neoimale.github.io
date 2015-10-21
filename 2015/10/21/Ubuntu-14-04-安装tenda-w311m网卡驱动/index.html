@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="近日组装了几台台式机，全部装了Ubuntu14.04，但面临一个问题——网络连接。总不能给每台机器都签根线吧，路由器也没那么多口，于是外置USB网卡是最好的选择。通过某宝找到了腾达的w311m无线网卡，说是Windows/Linux/MAC全支持。
 从官网下载了W311M V3.0网卡驱动(LINUX) V3.0，V3.0版本的网卡背面的FCC ID为V7TW311M2。根据网上的教程，一步步安装">
-<meta property="og:updated_time" content="2015-10-21T03:13:41.000Z">
+<meta property="og:updated_time" content="2015-10-21T03:32:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu 14.04 安装tenda w311m网卡驱动">
 <meta name="twitter:description" content="近日组装了几台台式机，全部装了Ubuntu14.04，但面临一个问题——网络连接。总不能给每台机器都签根线吧，路由器也没那么多口，于是外置USB网卡是最好的选择。通过某宝找到了腾达的w311m无线网卡，说是Windows/Linux/MAC全支持。
@@ -192,8 +192,8 @@
 <li>在os/linux/config.mk中找到并修改：<code>HAS_WPA_SUPPLICANT=y</code>以及<code>HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y</code>，保存；</li>
 <li>在源码根目录下执行<code>make</code>；</li>
 <li>在源码根目录下执行<code>sudo make install</code>；</li>
-<li>执行<code>lsmod | grep mt7601</code>，可以找到安装的模块<code>mt7601Usta   807204  0</code>；</li>
 <li>执行<code>sudo modprobe mt7601Usta</code>；</li>
+<li>执行<code>lsmod | grep mt7601</code>，可以找到安装的模块<code>mt7601Usta   807204  0</code>；</li>
 <li>编辑/etc/modules文件，加入：<code>mt7601Usta</code>，保存，使得每次开机时自动加载驱动模块。</li>
 </ol>
 <p>在完成以上步骤以后，确实可以看到无线网络了，可一打开浏览器准备拿百度来测试测试（百度的正确使用方法），结果就死机了。。。空欢喜一场啊！之后重试好几次还是一样。没办法，只能找原因了。一番谷歌之后，通过系统日志发现了一些蛛丝马迹。<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep -e mt7601</span><br><span class="line">mt7601Usta: module verification failed: signature<span class="instruction"> and/or </span> required key missing - tainting kernel</span><br></pre></td></tr></table></figure></p>

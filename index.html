@@ -191,8 +191,8 @@
 <li>在os/linux/config.mk中找到并修改：<code>HAS_WPA_SUPPLICANT=y</code>以及<code>HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y</code>，保存；</li>
 <li>在源码根目录下执行<code>make</code>；</li>
 <li>在源码根目录下执行<code>sudo make install</code>；</li>
-<li>执行<code>lsmod | grep mt7601</code>，可以找到安装的模块<code>mt7601Usta   807204  0</code>；</li>
 <li>执行<code>sudo modprobe mt7601Usta</code>；</li>
+<li>执行<code>lsmod | grep mt7601</code>，可以找到安装的模块<code>mt7601Usta   807204  0</code>；</li>
 <li>编辑/etc/modules文件，加入：<code>mt7601Usta</code>，保存，使得每次开机时自动加载驱动模块。</li>
 </ol>
 <p>在完成以上步骤以后，确实可以看到无线网络了，可一打开浏览器准备拿百度来测试测试（百度的正确使用方法），结果就死机了。。。空欢喜一场啊！之后重试好几次还是一样。没办法，只能找原因了。一番谷歌之后，通过系统日志发现了一些蛛丝马迹。<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep -e mt7601</span><br><span class="line">mt7601Usta: module verification failed: signature<span class="instruction"> and/or </span> required key missing - tainting kernel</span><br></pre></td></tr></table></figure></p>
